@@ -18,9 +18,20 @@ export const Registroinfo = () => {
 
       }
 
-      const hola = async () =>{
+      const actualizabase = async () => {
+        const res = await axios.post('/basedatos/actualizadatos', { numid: documento, nombre, apellido });
+        console.log(res.data)
+        setDocumento('')
+        setNombre('')
+        setApellido('')
+      }
 
-        console.log("SISA, MELO? IZIIIIII???")
+      const borrabase = async () => {
+        const res = await axios.post('/basedatos/borrar', { numid: documento, nombre, apellido });
+        console.log(res.data)
+        setDocumento('')
+        setNombre('')
+        setApellido('')
       }
     
       const onChangedc = (e) => {
@@ -38,9 +49,22 @@ export const Registroinfo = () => {
       }
 
     const inserta = () => {
-        console.log('Se hizo click');
+        console.log('Se hizo click insertar registro');
          guardabase()
       }
+
+    const actualiza = () => {
+        console.log('Se hizo click en actualizar registro');
+         actualizabase()
+      }
+
+    const borra= () => {
+        console.log('Se hizo click en borrar registro');
+         borrabase()
+      }
+
+
+
     return (
         <div  className="formdb__box-containter">
             <h3 className="auth__title">Envio INFO</h3>
@@ -74,24 +98,29 @@ export const Registroinfo = () => {
                 onChange={onChangeap}
                 autoComplete="off"
                 />
-
-                
-                
                 <button
                 className="btn btn-primary" 
                 type="button"
                 onClick={()=>inserta()}
                 > 
-                enviar info
-                </button>    
+                Enviar info
+                </button>  
 
                 <button
                 className="btn btn-primary" 
                 type="button"
-                onClick={()=>hola()}
+                onClick={()=>actualiza()}
                 > 
-                SISA
-                </button>  
+                Actualizar reg
+                </button>
+
+                <button
+                className="btn btn-primary" 
+                type="button"
+                onClick={()=>borra()}
+                > 
+                Borrar reg
+                </button>   
 
             </form>
         </div>

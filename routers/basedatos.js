@@ -23,9 +23,25 @@ router.get('/consultatotalpacientes', async (req, res) => {
 });
 
 router.post('/insertarpacientes', async (req, res) => {
-  const { nombre, apellido, numid } = req.body;
+  const { numid, nombre, apellido} = req.body;
   await client.query(
-    `INSERT INTO pacientes(numid, nombre, apellidos) VALUES('${nombre}','${apellido}','${numid}')`
+    `INSERT INTO pacientes(numid, nombre, apellidos) VALUES('${numid}','${nombre}','${apellido}')`
   );
-  res.send('INSERTADO PAPIRRI');
+  res.send('INSERTADO');
+});
+
+router.post('/actualizadatos', async (req, res) => {
+  const { numid, nombre, apellido} = req.body;
+  await client.query(
+    `UPDATE pacientes SET numid = '${numid}', nombre = '${nombre}', apellidos = '${apellido}' WHERE numid = '${numid}'`
+  );
+  res.send('ACTUALIZADO');
+});
+
+router.post('/borrar', async (req, res) => {
+  const { numid, nombre, apellido } = req.body;
+  await client.query(
+    `DELETE FROM pacientes WHERE numid = '${numid}'`
+  );
+  res.send('BORRADO');
 });
